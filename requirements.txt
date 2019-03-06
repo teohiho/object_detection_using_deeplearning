@@ -1,0 +1,7 @@
+numpy==1.14.3
+imutils==0.4.60
+jupyterlab==0.32.1
+matplotlib==2.2.2
+numpy==1.14.3
+opencv-python==3.4.1.15
+tensorflow-gpu==1.8.0
