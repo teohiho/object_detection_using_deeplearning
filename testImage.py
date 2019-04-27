@@ -10,7 +10,7 @@ def box_large(tl,br):
 options = {
     # 'model': 'cfg/yolo.cfg',
     'model': 'cfg/yolo-voc-1.cfg',
-    'load': 1250,
+    'load': 1739,
     # 'load': "weights/yolov2.weights",
     'threshold': 0.2,
     'gpu': 0.6

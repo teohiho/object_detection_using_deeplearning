@@ -1,1 +1,3 @@
 motocycle
+person
+car

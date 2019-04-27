@@ -9,14 +9,15 @@ import numpy as np
 option = {
     # 'model': 'cfg/yolo.cfg',
     'model': 'cfg/yolo-voc-1.cfg',
-    'load': 1739,
+    'load': 3250,
     # 'load': "weights/yolov2.weights",
     'threshold': 0.3,
     'gpu': 0.6
 }
+
 tfnet = TFNet(option)
 # read video
-capture = cv2.VideoCapture('video-01.mp4')
+capture = cv2.VideoCapture('video-quangtrung.mp4')
 
 number_frame = 0
 
@@ -36,7 +37,7 @@ while (capture.isOpened()):
     person = 0
     results = []
     if ret:
-        number_frame += 1
+        number_frame += 2
         if number_frame % 1 == 0:
             results = tfnet.return_predict(img)
             print(results)
@@ -44,14 +45,14 @@ while (capture.isOpened()):
                 tl = (result['topleft']['x'], result['topleft']['y'])
                 br = (result['bottomright']['x'], result['bottomright']['y'])
                 label = result['label']
+                cf = result['confidence']
                 if box_large(tl, br) < 1000:
                     person += 1
                     frame = cv2.rectangle(frame, tl, br, (0, 255, 0), 1)
-                    frame = cv2.putText(frame, label, tl, cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 0), 1)
-                    
+                    frame = cv2.putText(frame, label + ": " + str(round(cf, 2)), tl, cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 0), 1)       
         
         cv2.imshow("frame", frame)
-        print('FPS {:.1f}'.format(1 / (time.time() - stime)))
+        # print('FPS {:.1f}'.format(1 / (time.time() - stime)))
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     else:
